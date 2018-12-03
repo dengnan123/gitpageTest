@@ -70,7 +70,7 @@ export default function request(url, options = { method: "GET" }) {
     // mode: 'cors',
     // credentials: 'include',
     headers: {
-      // Authorization: "e65c7aa01ff296758936936cc5f422e19273411b"
+      // Authorization: "token ab55ea596eb1a1e20fac0d3ea449eb61033f1032"
       // access_token: "e65c7aa01ff296758936936cc5f422e19273411b"
       //   username: getCookie('username'),
       //   role: getCookie('role'),
@@ -86,8 +86,8 @@ export default function request(url, options = { method: "GET" }) {
 
   console.log("optionsaaaaaaa", options);
   options.method.toLocaleUpperCase();
-  const access_token = "3475ac5953d8217eb40c8366b1edd90445ed0d0b";
-  url = `${url}?access_token=${access_token}`;
+  // const access_token = "3475ac5953d8217eb40c8366b1edd90445ed0d0b";
+  // url = `${url}?access_token=${access_token}`;
   if (options.body) {
     if (options.method === "GET") {
       const query = qs.stringify(options.body);
