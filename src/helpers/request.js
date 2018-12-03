@@ -67,24 +67,26 @@ export default function request(url, options = { method: "GET" }) {
   //   } = router;
 
   const addOptions = {
-    access_token: "e65c7aa01ff296758936936cc5f422e19273411b"
     // mode: 'cors',
     // credentials: 'include',
-    // headers: {
-    // //   username: getCookie('username'),
-    // //   role: getCookie('role'),
-    // //   token: getCookie('token'),
-    // //   id: getCookie('id'),
-    // //   'Content-Type': 'application/json',
-    // //   pathname,
-    // //   uuid:getCookie('uuid'),
-    // //   userpid:getCookie('uuid'),
-    // },
+    headers: {
+      // Authorization: "e65c7aa01ff296758936936cc5f422e19273411b"
+      // access_token: "e65c7aa01ff296758936936cc5f422e19273411b"
+      //   username: getCookie('username'),
+      //   role: getCookie('role'),
+      //   token: getCookie('token'),
+      //   id: getCookie('id'),
+      //   'Content-Type': 'application/json',
+      //   pathname,
+      //   uuid:getCookie('uuid'),
+      //   userpid:getCookie('uuid'),
+    }
+    //3475ac5953d8217eb40c8366b1edd90445ed0d0b
   };
 
   console.log("optionsaaaaaaa", options);
   options.method.toLocaleUpperCase();
-  const access_token = "e65c7aa01ff296758936936cc5f422e19273411b";
+  const access_token = "3475ac5953d8217eb40c8366b1edd90445ed0d0b";
   url = `${url}?access_token=${access_token}`;
   if (options.body) {
     if (options.method === "GET") {
