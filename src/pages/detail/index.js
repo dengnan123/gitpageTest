@@ -12,18 +12,33 @@ class Detail extends Component {
       location: {
         query: { id }
       },
-      dispatch
+      dispatch,
+      numberArr
     } = this.props;
-    dispatch({
-      type: "indexModel/getInfo",
-      payload: {
-        id
-      }
-    });
+    this.handleScroll();
+    if (numberArr.includes(parseInt(id, 10))) {
+      dispatch({
+        type: "indexModel/saveInfo",
+        payload: {
+          id
+        }
+      });
+    } else {
+      dispatch({
+        type: "indexModel/getInfo",
+        payload: {
+          id
+        }
+      });
+    }
+  }
+  handleScroll() {
+    document.documentElement.scrollTop = -120;
+    let scrollTop = document.body.scrollTop;
   }
 
   render() {
-    const { loading, arr, list, info } = this.props;
+    const { loading, info } = this.props;
     const isLoading = loading.effects["indexModel/getInfo"];
     return (
       <div className={styles.pageContent}>
@@ -37,10 +52,11 @@ class Detail extends Component {
 
 function indexStateToProps(state) {
   const { loading } = state;
-  const { info } = state.indexModel;
+  const { info, numberArr } = state.indexModel;
   return {
     loading,
-    info
+    info,
+    numberArr
   };
 }
 

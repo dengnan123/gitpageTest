@@ -1,11 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "dva";
 import router from "umi/router";
+import moment from "moment";
+import ReactMarkdown from "react-markdown";
 // import PropTypes from "prop-types";
-import { Row, Col, Card, Skeleton } from "antd";
+import { Row, Col, Card, Skeleton, Icon } from "antd";
 import styles from "./index.less";
 
 class FleetList extends Component {
+  componentDidMount() {
+    const { dispatch, numberArr } = this.props;
+    if (!numberArr.length) {
+      dispatch({
+        type: "indexModel/getList"
+      });
+    }
+  }
+
   click = id => {
     router.push(`/detail?id=${id}`);
   };
@@ -29,7 +40,27 @@ class FleetList extends Component {
                       this.click(value.number);
                     }}
                   >
-                    {value.body.slice(0, 45)}
+                    <div className={styles.content}>
+                      <ReactMarkdown source={value.body.slice(0, 55)} />
+                    </div>
+
+                    <div className={styles.bottomDiv}>
+                      <span>
+                        <Icon type="schedule" />
+                        <span className={styles.time}>
+                          {moment(value.created_at).format(
+                            "YYYY.MM.DD HH:mm:ss"
+                          )}
+                        </span>
+                      </span>
+                      <span className={styles.reply}>
+                        <Icon type="message" />
+                        <span className={styles.replySpan}>
+                          {" "}
+                          {value.comments}
+                        </span>
+                      </span>
+                    </div>
                   </Card>
                 );
               })}
@@ -50,13 +81,14 @@ class FleetList extends Component {
 
 function indexStateToProps(state) {
   const { loading } = state;
-  const { list, count } = state.indexModel;
+  const { list, count, numberArr } = state.indexModel;
   const arr = Array(15).fill(0);
   return {
     loading,
     list,
     count,
-    arr
+    arr,
+    numberArr
   };
 }
 

@@ -3,7 +3,7 @@ import qs from "qs";
 import { message } from "antd";
 import router from "umi/router";
 // import { getCookie } from './helper';
-
+const access_token = "f0be6fc4e15cf2441be6f3b800e738cf4a60afb5";
 const codeMessage = {
   200: "服务器成功返回请求的数据。",
   201: "新建或修改数据成功。",
@@ -61,7 +61,6 @@ function checkStatus(response) {
  * @return {object}           An object containing either "data" or "err"
  */
 export default function request(url, options = { method: "GET" }) {
-  console.log("urlurl", url);
   //   const {
   //     location: { pathname },
   //   } = router;
@@ -84,9 +83,7 @@ export default function request(url, options = { method: "GET" }) {
     //3475ac5953d8217eb40c8366b1edd90445ed0d0b
   };
 
-  console.log("optionsaaaaaaa", options);
   options.method.toLocaleUpperCase();
-  // const access_token = "3475ac5953d8217eb40c8366b1edd90445ed0d0b";
   // url = `${url}?access_token=${access_token}`;
   if (options.body) {
     if (options.method === "GET") {
@@ -100,7 +97,6 @@ export default function request(url, options = { method: "GET" }) {
 
   options = Object.assign({}, addOptions, options);
 
-  console.log("option123123123s", options);
   return fetch(url, options)
     .then(checkStatus)
     .then(parseJSON)

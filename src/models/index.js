@@ -7,7 +7,8 @@ export default {
     list: [],
     count: 0,
     id: "",
-    info: {}
+    info: {},
+    numberArr: []
   },
 
   reducers: {
@@ -21,8 +22,8 @@ export default {
       const { list } = state;
       let obj = {};
       for (const value of list) {
-        const { id } = value;
-        if (id === payload.id) {
+        const { number } = value;
+        if (number === parseInt(payload.id, 10)) {
           obj = { ...value };
         }
       }
@@ -41,12 +42,12 @@ export default {
     *getList({ payload }, { call, put }) {
       const res = yield call(indexService.getList, payload);
       if (res) {
-        console.log("res", res);
-        // const { list, count } = res.RESULT;
+        const numberArr = res.map(value => value.number);
         yield put({
           type: "save",
           payload: {
-            list: res
+            list: res,
+            numberArr
           }
         });
       } else {
@@ -76,12 +77,12 @@ export default {
   subscriptions: {
     setup({ history, dispatch }) {
       return history.listen(({ pathname, search }) => {
-        if (pathname === "/") {
-          dispatch({
-            type: "getList",
-            payload: {}
-          });
-        }
+        // if (pathname === "/") {
+        //   dispatch({
+        //     type: "getList",
+        //     payload: {}
+        //   });
+        // }
       });
     }
   }
